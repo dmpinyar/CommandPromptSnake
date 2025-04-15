@@ -6,7 +6,7 @@ package dmpinyar.snake;
 import java.util.ArrayList;
 
 /**
- * 
+ * Object for the snake object
  */
 public class Snake {
 	//0 is up
@@ -19,8 +19,11 @@ public class Snake {
 	
 	
 	/**
-	 * @param length
-	 * @param chunks
+	 * Constructor method for the snake 
+	 * Snake knows its own position as well as the position of all body parts
+	 * Made before I knew about custom linked lists
+	 * 
+	 * Should probably be remade for efficiency
 	 */
 	public Snake(int width, int height, int length) {
 		this.length = length;
@@ -39,6 +42,11 @@ public class Snake {
 		}
 	}
 	
+	/**
+	 * Increments size of the snake
+	 * 
+	 * Could be made a bit more efficient in terms of passing parameters
+	 */
 	public void appleEat() {
 		length++;
 		int[] snakeChunk = new int[2];
@@ -47,6 +55,12 @@ public class Snake {
 		chunks.add(snakeChunk);
 	}
 	
+	/**
+	 * Moves the snake and all chunks
+	 * 
+	 * Should be reworked to only update tail
+	 * Probably through a custom linked list
+	 */
 	public boolean SnakeMove(int dir, int width, int height) {
 		int tempX = chunks.get(0)[0];
 		int tempY = chunks.get(0)[1];

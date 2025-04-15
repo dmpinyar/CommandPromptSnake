@@ -9,7 +9,7 @@ import dmpinyar.snake.Snake;
 import dmpinyar.scan_thread.ScanThread;
 
 /**
- * 
+ * Houses main method and static methods for assisting in displaying snake
  */
 public class SnakeGame extends Thread {
 
@@ -17,24 +17,24 @@ public class SnakeGame extends Thread {
 	public static final int GRID_HEIGHT = 15;
 	public static final int APPLES = 5;
 	public static final int LENGTH = 3;
+	
+	//slowest speed is roughly 2000000000
+	//mid is 1000000000
+	//fastest is 600000000
+	public static final int MAX_TICKS = 600000000;
 	public enum State{empty, snake, apple};
 	
 	/**
-	 * @param args
+	 * Main method
+	 * @param args nonsense to modify game (doesn't do anything)
 	 */
 	public static void main(String[] args) {
 		ScanThread inputScan = new ScanThread(new Scanner(System.in));
 		inputScan.start();
 		
-		
 		int dir = 2;
 		boolean gameOver = false;
 		int ticks = 0;
-		
-		//slowest speed is roughly 2000000000
-		//mid is 1000000000
-		//fastest is 600000000
-		final int MAX_TICKS = 600000000;
 		
 		//generate grid
 		State[][] grid = new State[GRID_WIDTH][GRID_HEIGHT];
@@ -101,6 +101,12 @@ public class SnakeGame extends Thread {
 		System.out.println("Score: " + snake.getLength());
 	}
 	
+	/**
+	 * A lot of inefficiency comes from reloading the grid everytime
+	 * Try to find a way to only update facets that matter
+	 * 
+	 * Later problem though
+	 */
 	static boolean updateGame(Snake snake, State[][] grid, int dir) {
 		if (!snake.SnakeMove(dir, GRID_WIDTH, GRID_HEIGHT)) return false;
 		
@@ -140,6 +146,9 @@ public class SnakeGame extends Thread {
 		return true;
 	}
 	
+	/**
+	 * Could be outsourced to another codebase for more fun.
+	 */
 	static void displayGame(State[][] grid) {
 		for (int a = 0; a < grid.length; a++) System.out.print("-");
 		System.out.print("\n");
